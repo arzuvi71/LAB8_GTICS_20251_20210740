@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Panel de Gestión de Expediciones</a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/NewExpedition}">Crear Nueva Expedición</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/NewPlanet}">Agregar Planeta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/NewCrewMember}">Nuevo Miembro de la Tripulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/CrewMembers}">Ver miembros de la tripulación</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h2>Expediciones Planificadas y en Curso</h2>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/product/new'}">Nuevo Producto</a>
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre Misión</th>
+            <th>Planeta Destino</th>
+            <th>Fecha Lanzamiento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expedition, info : ${listaExpediciones}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${expedition.getPlaneta_destino()}"></td>
+            <td th:text="${expedition.getFecha_lanzamiento()}"></td>
+            <td th:text="${expedition.getEstado()}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/expedition/details' + '?id=' + ${expedition.id}}">Ver Detalles</a>
+                <a class="btn btn-primary" th:href="@{'/expedition/edit' + '?id=' + ${expedition.id}}">Editar</a>
+                <a class="btn btn-danger" th:href="@{'/expedition/delete' + '?id=' + ${employee.id}}">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
